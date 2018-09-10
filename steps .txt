@@ -1,0 +1,54 @@
+ Create a project for laravel.Using this command.
+		"composer create-project --prefer-dist laravel/laravel yourprojectname"
+		
+ Now set your project into xamp/htdocs.
+ 
+ Now for run your project you need you need your server so you go to your project folder in cmd now  run this command 
+		"php artisan serve"
+		from this command you run your project and you have url http://localhost/yourprojectname/public/
+
+ For use multi auth system you must need to auth so open your folder into cmd.
+		"php artisan make:auth"
+		From this command auth is created in your project now you have provide user login system on your index page 
+		http://localhost/yourprojectname/public/login
+		You have login and register system is available that's work for only user login .
+
+		Now if we use login with admin in this project then firstly we create a table as 'admins'	
+		"php artisan make:migration create_admins_table table=admins"
+		From this command you have create a new table as 'admins'
+		
+ Now we create a database in our database  as yourdatabasename now we connect the project with database so we go to .env file in our project
+		yourprojectname/.env
+		In this file we write db="yourdatabasename"  dbname="root"  dbpassword=""
+		Now our project is created with db
+
+Now we migrate our tables into db then follow this
+		"php artisan migrate"
+		Tables are created into database
+		
+ Now we create model for admin so copy user.php and paste with name admin.php  app/user.php in admin model you need to change class name user to admin.
+		
+Now for login with admin we need to create authentication so we go to auth.php file that is yourprojectname/config/auth.php   in which you have array with 'guards' name in which two sub array 'web','api' 	thsese array provides for login for users using session and drivers and contain items from users table so we also create api for admin	 
+	so copy to web and api array and paste in guards array now rename web to admin  and api to admin-api  and users to admins that's your table name.
+	
+ Now in this file go on to providers array in which show users array and model is call the model User that is set in app/User.php  NOw we create copy users array and paste in providers array and call admin model that is app/admin	.
+
+ Now in this we go to the passwords array and copy users array and paste in password array and replace users to admins and expire time is decrease to 15.
+ 
+ Now we create route for login with user and admin route/web.php
+ 
+ Now we create a controller as admincontroller 
+	"php artisan make:controller admincontroller"
+	
+ Now create a blade as admin.blade.php in view/admin.blade.php
+ that is dashboard of admin.
+ 
+ In admincontroller we create class as index and return on admin.blade.php resources/view/admin.blade.php
+ 
+ Now create auth in app/http./controller/auth/adminlogincontroller.php 
+
+ We create a blade as admin-login.blade.php in resources/view/auth/admin-loginblade.php.
+ that is login page of admin. 
+ In auth we protect our home page without login redirect to resources/view/auth/admin-loginblade.php.
+
+ 
