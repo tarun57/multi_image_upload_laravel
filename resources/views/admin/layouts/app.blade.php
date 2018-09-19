@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	@include('admin.layouts.head')
+</head>
+<body class="hold-transition skin-purple sidebar-mini">
+<div class="wrapper">
+	@include('admin.layouts.header')
+	@include('admin.layouts.sidebar')
+	@section('main-content')
+		@show
+		<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Blank page
+        <small>it all starts here</small>
+      </h1>
+      
+    </section>
+	@include('admin.layouts.footer')
+</div>
+</body>
+</html>
