@@ -56,7 +56,7 @@
                           <th>Password</th>
                           <th>Image</th>
                           <th>Creatd At</th>
-                          <!-- <th>Updated At</th> -->
+                          <th>Updated At</th>
                           
                           @can('infos.update',Auth::user())
                           <th>Edit</th>
@@ -83,7 +83,7 @@
                            
  <!-- <td><img src="asset(storage/app/{{ $info->image }})" alt="image"></img></td> -->
                             <td>{{ $info->created_at }}</td>
-                            <!-- <td>{{ $info->updated_at->diffForHumans() }}</td> -->
+                            <td>{{ $info->updated_at->diffForHumans() }}</td>
                             <td><a href="{{ route('info.edit',$info->id) }}"><span class="glyphicon glyphicon-edit"></span></a></td>
                             <td>
                               <form id="delete-form-{{ $info->id }}" method="post" action="{{ route('info.destroy',$info->id) }}" style="display: none">
@@ -113,7 +113,7 @@
                           <th>Password</th>
                           <th>Image</th>
                           <th>Creatd At</th>
-                             <!-- <th>Updated At</th> -->
+                             <th>Updated At</th>
                           @can('infos.update',Auth::user())
                           <th>Edit</th>
                           @endcan
