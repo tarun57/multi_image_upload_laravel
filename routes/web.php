@@ -20,12 +20,8 @@ Route::get('/index', function () {
 
 
 Route::resource('info','InfoController');
+Route::resource('upload','UploadController');
 
-Route::get('/multi', function () {
-    return view('admin/multi');
-})->name('multi');
-
-Route::post('/multi', 'UploadController@index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

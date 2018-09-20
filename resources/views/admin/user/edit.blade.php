@@ -56,7 +56,7 @@
                 <div class="form-group">
                   <div class="pull-right">
                     <label for="image">File input</label>
-                    <input type="file" name="image[]" id="image" value=" image/{{$info->image}} " multiple>
+                    <input type="file" name="image[]" id="image" multiple>
                   </div>
                   <div class="checkbox pull-left">
                     <label>

@@ -56,6 +56,8 @@
                           <th>Password</th>
                           <th>Image</th>
                           <th>Creatd At</th>
+                          <!-- <th>Updated At</th> -->
+                          
                           @can('infos.update',Auth::user())
                           <th>Edit</th>
                           @endcan
@@ -71,11 +73,17 @@
                             <td>{{ $info->name }}</td>
                             <td>{{ $info->email }}</td>
                             <td>{{ $info->password }}</td>
-                            <td><img src="image/{{ $info->image }}" class="img" /></td> 
-                            
+
+                          <td>
+                            @php ($names = [])
+                        @php($names[]=explode(',', $info->image))
+                        <img src="image/{{ $names[0][2] }}" class="img" width="100px"  height="100px" /></td> 
+
                             <!-- <td><img src="{{ asset($info->image) }}" /></td> -->
-                            <!-- <td><img src="asset(storage/app/{{ $info->image }})" alt="image"></img></td> -->
+                           
+ <!-- <td><img src="asset(storage/app/{{ $info->image }})" alt="image"></img></td> -->
                             <td>{{ $info->created_at }}</td>
+                            <!-- <td>{{ $info->updated_at->diffForHumans() }}</td> -->
                             <td><a href="{{ route('info.edit',$info->id) }}"><span class="glyphicon glyphicon-edit"></span></a></td>
                             <td>
                               <form id="delete-form-{{ $info->id }}" method="post" action="{{ route('info.destroy',$info->id) }}" style="display: none">
@@ -95,14 +103,17 @@
                           
                           </tr>
                         @endforeach
+
                         </tbody>
                         <tfoot>
                         <tr>
                           <th>S.No</th>
-                          <th>Title</th>
-                          <th>Sub Title</th>
-                          <th>Slug</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Password</th>
+                          <th>Image</th>
                           <th>Creatd At</th>
+                             <!-- <th>Updated At</th> -->
                           @can('infos.update',Auth::user())
                           <th>Edit</th>
                           @endcan

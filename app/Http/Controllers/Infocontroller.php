@@ -16,8 +16,8 @@ class Infocontroller extends Controller
     public function index()
     {
         $infos = info::all();
-    
-        return view('admin.user.show',compact('infos'));  
+        $image = array();
+        return view('admin.user.show',compact('infos','image'));  
         
     }
 
@@ -55,7 +55,7 @@ class Infocontroller extends Controller
         if($files=$request->file('image')){
         foreach($files as $file){
              $name=$file->getClientOriginalName();
-             //$image = $request->image->store('image',$name);
+             
             $file->move('image',$name);
             $image[]=$name;
         }
@@ -76,6 +76,7 @@ class Infocontroller extends Controller
       
 
         return redirect(route('info.index'));
+
     }
 
     /**
@@ -103,7 +104,7 @@ class Infocontroller extends Controller
             $infos =info::all();
             return view('admin.user.edit',compact('infos'));
         // }
-        return redirect(route('admin.index'));
+        return redirect(route('admin.index'));      
     }
 
     /**
@@ -122,21 +123,28 @@ class Infocontroller extends Controller
            
             'image' => 'required',
             ]);
-        if ($request->hasFile('image')) {
-            $imageName = $request->image->store('public');
-        }else{
-            return 'No';
+        // if ($request->hasFile('image')) {
+        //     $imageName = $request->image->store('public');
+        // }else{
+        //     return 'No';
+        // }
+        $image=array();
+        if($files=$request->file('image')){
+        foreach($files as $file){
+             $name=$file->getClientOriginalName();
+             $file->move('image',$name);
+            $image[]=$name;
         }
+    }
         $infos = info::find($id);
-        $infos->image = $imageName;
+        $infos->image=  implode(",",$image);
+        // $infos->image = $imageName;
         $infos->name = $request->name;
         $infos->email = $request->email;
         $infos->password = $request->password;
       
        
         $infos->save();
-      
-
         return redirect(route('info.index'));
     }
 
