@@ -12,7 +12,22 @@
                         </tr>
                         </thead>
                         <tbody>
-                         
+                      <!--  	<?php 
+                               $img=array();
+                        	//echo  print_r($uploads);
+                             foreach($uploads as $val)
+                             {
+                             	 $val->image;
+                              }
+                            $image= $val->image;
+                            $img=explode(",",$image);
+                            //print_r($img);
+                            foreach ($img as $key => $value) {
+                            	?>
+                            	 <!-- <img src="image/<?php echo $value;?>" class="img" width="500px"  height="200px" /> -->
+                            	 <!-- <?php
+                            }
+                        	?>  --> 
                           @foreach ($uploads as $upload)
                           <tr>
                             <td>{{ $loop->index + 1 }}</td>
@@ -21,8 +36,8 @@
                          
                  @php ($names = [])
                         @php($names[]=explode(',', $upload->image))
-                      
-                            <img src="image/{{ $names[0][0] }}" class="img" width="500px"  height="200px" />
+                            <!--{{ $key . ' => ' . $value }} -->
+                            <img src="image/{{ $names[0][1] }}" class="img" width="500px"  height="200px" />
                             </td>
                             <!-- <td>{{ $upload->email }}</td> -->
                             <!-- <td>{{ $upload->password }}</td> -->
@@ -33,8 +48,7 @@
                             <!-- <td><img src="asset(storage/app/{{ $upload->image }})" alt="image"></img></td> -->
                             <!-- <td>{{ $upload->created_at }}</td> -->
                             <!-- <td>{{ $upload->updated_at->diffForHumans() }}</td> -->
-                            
-                            <td><a href="{{ route('upload.edit', ['id' => $upload->id]) }}">edit<span class="glyphicon glyphicon-edit"></span></a></td>
+                            <td><a href="{{ route('upload.edit',$upload->id) }}">edit<span class="glyphicon glyphicon-edit"></span></a></td>
                             <td>
                               <form id="delete-form-{{ $upload->id }}" method="post" action="{{ route('upload.destroy',$upload->id) }}" style="display: none">
                                 {{ csrf_field() }}
@@ -72,3 +86,7 @@
                         </tr>
                         </tfoot>
                       </table>
+
+
+
+                      $uploads->image=  implode(",",$image);

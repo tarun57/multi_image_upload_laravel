@@ -77,7 +77,7 @@
                           <td>
                             @php ($names = [])
                         @php($names[]=explode(',', $info->image))
-                        <img src="image/{{ $names[0][2] }}" class="img" width="100px"  height="100px" /></td> 
+                        <img src="image/{{ $names[0][0] }}" class="img" width="100px"  height="100px" /></td> 
 
                             <!-- <td><img src="{{ asset($info->image) }}" /></td> -->
                            

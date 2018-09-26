@@ -102,6 +102,7 @@ class Infocontroller extends Controller
        //      $infos = info::with('info')->where('id',$id)->first();
            
             $infos =info::all();
+             
             return view('admin.user.edit',compact('infos'));
         // }
         return redirect(route('admin.index'));      

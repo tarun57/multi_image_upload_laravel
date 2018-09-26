@@ -19,8 +19,10 @@ Route::get('/index', function () {
 });
 
 
-Route::resource('info','InfoController');
+Route::resource('info','Infocontroller');
 Route::resource('upload','UploadController');
+
+
 
 Auth::routes();
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Upload;
 use Auth;
+use View;
+use File;
 
 class UploadController extends Controller
 {
@@ -43,15 +45,11 @@ class UploadController extends Controller
             
             'image' => 'required',
             ]);
-        
-
-
-        $image=array();
+          $image=array();
         if($files=$request->file('image')){
         foreach($files as $file){
-             $name=$file->getClientOriginalName();
-             
-            $file->move('image',$name);
+             $name=$file->getClientOriginalName(); 
+            $file->move('image',$name); 
             $image[]=$name;
         }
     }
@@ -61,8 +59,9 @@ class UploadController extends Controller
        //  }
 
         $uploads = new upload;
-    $uploads->image=  implode(",",$image);
-        $uploads->name = $request->name;
+       $uploads->image=  implode(",",$image);
+     // $uploads->image = $request->image;
+        $uploads->name = $request->name;    
         $uploads->save();
       
 
@@ -90,10 +89,21 @@ class UploadController extends Controller
      */
     public function edit($id)
     {
-        $uploads =upload::all();
-            return view('admin.multiedit',compact('uploads'));
-        // }
-        return redirect(route('admin.multi')); 
+
+
+        $upload = upload::find($id);
+        $uploads = $upload->toArray();
+    return View::make('admin.multiedit', [
+        'uploads' => $uploads
+    ]);
+    return redirect(route('admin.multi')); 
+        //$uploads =upload::find($id);
+
+
+  
+         //  return view('admin.multiedit',compact('uploads'));
+         //}
+        //return redirect(route('admin.multi')); 
     }
 
     /**
@@ -117,7 +127,7 @@ class UploadController extends Controller
             $image[]=$name;
         }
     }
-        $uploads = upoad::find($id);
+        $uploads = upload::find($id);
         $uploads->image=  implode(",",$image);
         // $infos->image = $imageName;
         $uploads->name = $request->name;
@@ -131,9 +141,27 @@ class UploadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        upload::where('id',$id)->delete();
-        return redirect()->back();
-    }
+    //  public function destroy($id)
+    // {
+
+    //      upload::where('id',$id)->delete();
+    //      return redirect()->back();
+    //  }
+
+  public function destroy($image) {
+    $uploads = Upload::find($image);
+    if(array_exists($image, $uploads['image']))
+    $final_upload[] = $uploads['image'];
+    //unlink(public_path("image/{$image}"))->delete();
+    $image_path = public_path("image/{$image}");
+    if (File::exists($image_path)) {
+          File::delete($image_path);                             
+         unlink($image_path)->delete();
+     }
+    // $uploads->delete();
+     return redirect()->back();
+    // $uploads = $uploads['image'];
+      // unlink($uploads)->delete();
+    // return redirect(route('admin.multi')); ->with('message','خبر موفقانه حذف  شد');
+}
 }
