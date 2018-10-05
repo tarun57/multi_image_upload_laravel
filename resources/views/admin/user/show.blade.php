@@ -1,3 +1,4 @@
+
 @extends('admin.layouts.app')
 
 
@@ -48,6 +49,7 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                       <table id="example1" class="table table-bordered table-striped">
+                      
                         <thead>
                         <tr>
                           <th>S.No</th>
@@ -82,9 +84,9 @@
                             <!-- <td><img src="{{ asset($info->image) }}" /></td> -->
                            
  <!-- <td><img src="asset(storage/app/{{ $info->image }})" alt="image"></img></td> -->
-                            <td>{{ $info->created_at }}</td>
+                       <td>{{ $info->created_at->diffForHumans() }}</td>
                             <td>{{ $info->updated_at->diffForHumans() }}</td>
-                            <td><a href="{{ route('info.edit',$info->id) }}"><span class="glyphicon glyphicon-edit"></span></a></td>
+                            <td> <a href="{{ route('info.edit',$info->id) }}">  <span onclick="update_action(' + rowIndex + ')" class="glyphicon glyphicon-edit"></span></a> <a href="#" class="table-link" onclick="update_action(' + rowIndex + ')"> Edit</a></td>
                             <td>
                               <form id="delete-form-{{ $info->id }}" method="post" action="{{ route('info.destroy',$info->id) }}" style="display: none">
                                 {{ csrf_field() }}
@@ -99,7 +101,33 @@
                                   else{
                                     event.preventDefault();
                                   }" ><span class="glyphicon glyphicon-trash"></span></a>
-                            </td>
+                            </td> 
+                            <td>
+                            
+    <script src="//code.jquery.com/jquery.min.js"></script>
+
+<script src="{{ asset('js/jquery.tabledit.min.js') }}"></script>
+       
+   <script>
+$( document ).ready(function() {
+
+}); 
+$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+$('#example1').Tabledit({
+
+  url: '{{route('info.update',$info->id)}}',
+  columns: {
+    identifier: [0, 1], 
+    editable: [[1, 'col1'], [2, 'col1'], [3, 'col3']]
+
+  }
+
+});
+</script></td>
                           
                           </tr>
                         @endforeach
@@ -123,7 +151,9 @@
                         </tr>
                         </tfoot>
                       </table>
-                    </div>
+                      
+
+            </div>
                     <!-- /.box-body -->
                   </div>
       </div>
@@ -140,4 +170,7 @@
 </div>
 <!-- /.content-wrapper -->
 
+
+
 @endsection
+

@@ -60,11 +60,7 @@
                     <label for="image">File input</label>
                     <input type="file" name="image[]" id="image" multiple>
                   </div>
-                <div>
-                  @foreach(explode(',', $infos['image']) as $info)
-                  <img src="http://localhost/laravel/public/image/{{ $info }}" class="img" width="500px"  height="200px" />
-@endforeach
-                </div>
+               
                   <div class="checkbox pull-left">
                     <label>
                       <input type="checkbox" name="status" value="1" @if ($info->status == 1)

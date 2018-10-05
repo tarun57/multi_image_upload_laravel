@@ -1,3 +1,4 @@
+
 @extends('admin.layouts.app')
 
 
@@ -30,7 +31,7 @@
           <!-- /.box-header -->
           <!-- form start -->
           <form role="form" action="{{ route('info.store') }}" method="post" enctype="multipart/form-data">
-            {{ csrf_field() }}
+          {{ csrf_field() }}
             <div class="box-body">
               <div class="col-lg-6">
                 <div class="form-group">

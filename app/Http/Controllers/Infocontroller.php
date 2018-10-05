@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Info;
 use Auth;
+use DB;
 
 class Infocontroller extends Controller
 {
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -44,6 +47,7 @@ class Infocontroller extends Controller
      */
     public function store(Request $request)
     {
+       
         $this->validate($request,[
             'name'=>'required',
             'email' => 'required',
@@ -115,37 +119,41 @@ class Infocontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request ,$id)
     {
-    $this->validate($request,[
-            'name'=>'required',
-            'email' => 'required',
-            'password' => 'required',
-           
-            'image' => 'required',
+       
+        // $data = array();
+        // $data['name'] = $request->name;
+        // DB::table('infos')->where('id',$request->id)->update($data);
+     $this->validate($request,[
+             'name'=>'required',
+             'email' => 'required',
+             'password' => 'required',
+            
+    //         // 'image' => 'required',
             ]);
         // if ($request->hasFile('image')) {
         //     $imageName = $request->image->store('public');
         // }else{
         //     return 'No';
         // }
-        $image=array();
-        if($files=$request->file('image')){
-        foreach($files as $file){
-             $name=$file->getClientOriginalName();
-             $file->move('image',$name);
-            $image[]=$name;
-        }
-    }
-        $infos = info::find($id);
-        $infos->image=  implode(",",$image);
-        // $infos->image = $imageName;
-        $infos->name = $request->name;
-        $infos->email = $request->email;
-        $infos->password = $request->password;
+     //     $image=array();
+     //     if($files=$request->file('image')){
+     //     foreach($files as $file){
+     //          $name=$file->getClientOriginalName();
+     //          $file->move('image',$name);
+     //         $image[]=$name;
+     //     }
+     // }
+     $infos = info::find($id);
+        // // $infos->image=  implode(",",$image);
+        // // $infos->image = $imageName;
+         $infos->name = $request->name;
+         $infos->email = $request->email;
+         $infos->password = $request->password;
       
        
-        $infos->save();
+         $infos->save();
         return redirect(route('info.index'));
     }
 

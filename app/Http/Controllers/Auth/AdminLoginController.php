@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 namespace App\Http\Controllers\Auth;
 
@@ -55,7 +55,7 @@ class AdminLoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-
+        
         return $this->guard('admin')->attempt(
             $this->credentials($request), $request->has('remember')
         );

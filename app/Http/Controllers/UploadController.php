@@ -117,18 +117,18 @@ class UploadController extends Controller
       {
     $this->validate($request,[
             'name'=>'required',
-            'image' => 'required',
+           // 'image' => 'required',
             ]);
-        $image=array();
-        if($files=$request->file('image')){
-        foreach($files as $file){
-             $name=$file->getClientOriginalName();
-             $file->move('image',$name);
-            $image[]=$name;
-        }
-    }
+    //     $image=array();
+    //     if($files=$request->file('image')){
+    //     foreach($files as $file){
+    //          $name=$file->getClientOriginalName();
+    //          $file->move('image',$name);
+    //         $image[]=$name;
+    //     }
+    // }
         $uploads = upload::find($id);
-        $uploads->image=  implode(",",$image);
+        // $uploads->image=  implode(",",$image);
         // $infos->image = $imageName;
         $uploads->name = $request->name;
         $uploads->save();
@@ -148,20 +148,24 @@ class UploadController extends Controller
     //      return redirect()->back();
     //  }
 
-  public function destroy($image) {
-    $uploads = Upload::find($image);
-    if(array_exists($image, $uploads['image']))
-    $final_upload[] = $uploads['image'];
-    //unlink(public_path("image/{$image}"))->delete();
-    $image_path = public_path("image/{$image}");
-    if (File::exists($image_path)) {
-          File::delete($image_path);                             
-         unlink($image_path)->delete();
-     }
-    // $uploads->delete();
-     return redirect()->back();
-    // $uploads = $uploads['image'];
-      // unlink($uploads)->delete();
-    // return redirect(route('admin.multi')); ->with('message','خبر موفقانه حذف  شد');
+  public function destroy($id) {
+    upload::where('id',$id)->delete();
+        return redirect()->back();
+
+    // $uploads = Upload::find($image);
+ 
+    // if(array_exists($image, $uploads['image']))
+    // $final_upload[] = $uploads['image'];
+    // //unlink(public_path("image/{$image}"))->delete();
+    // $image_path = public_path("image/{$image}");
+    // if (File::exists($image_path)) {
+    //       File::delete($image_path);                             
+    //      unlink($image_path)->delete();
+    //  }
+    // // $uploads->delete();
+    //  return redirect()->back();
+    // // $uploads = $uploads['image'];
+    //   // unlink($uploads)->delete();
+    // // return redirect(route('admin.multi')); ->with('message','خبر موفقانه حذف  شد');
 }
 }
